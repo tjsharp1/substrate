@@ -45,6 +45,9 @@ where
 	Call: Member + Dispatchable<Origin = Origin>,
 	Extra: SignedExtension<AccountId = AccountId, Call = Call>,
 	Origin: From<Option<AccountId>>,
+    <Extra as SignedExtension>::Pre: core::fmt::Debug,
+    <Call as Dispatchable>::Info: core::fmt::Debug,
+    <Call as Dispatchable>::PostInfo: core::fmt::Debug
 {
 	type Call = Call;
 
