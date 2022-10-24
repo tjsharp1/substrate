@@ -507,6 +507,7 @@ where
 			let len_fee = Self::length_to_fee(len);
 
 			let base_fee = Self::weight_to_fee(T::BlockWeights::get().get(class).base_extrinsic);
+            log::info!("TJDEBUG phee deeatZ {:?} {:?} {:?} {:?} {:?}", unadjusted_weight_fee, multiplier, adjusted_weight_fee, len_fee, base_fee);
 			FeeDetails {
 				inclusion_fee: Some(InclusionFee { base_fee, len_fee, adjusted_weight_fee }),
 				tip,
@@ -748,6 +749,7 @@ where
 	fn estimate_call_fee(call: &AnyCall, post_info: PostDispatchInfo) -> BalanceOf<T> {
 		let len = call.encoded_size() as u32;
 		let info = call.get_dispatch_info();
+        log::info!("TJDEBUG disptchinf {:?}", info);
 		Self::compute_actual_fee(len, &info, &post_info, Zero::zero())
 	}
 }
