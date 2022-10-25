@@ -507,7 +507,7 @@ where
 			let len_fee = Self::length_to_fee(len);
 
 			let base_fee = Self::weight_to_fee(T::BlockWeights::get().get(class).base_extrinsic);
-            log::info!("TJDEBUG phee deeatZ {:?} {:?} {:?} {:?} {:?}", unadjusted_weight_fee, multiplier, adjusted_weight_fee, len_fee, base_fee);
+            log::info!("TJDEBUG phee deeatZ {:?} {:?} {:?} {:?} {:?} {:?}", weight, unadjusted_weight_fee, multiplier, adjusted_weight_fee, len_fee, base_fee);
 			FeeDetails {
 				inclusion_fee: Some(InclusionFee { base_fee, len_fee, adjusted_weight_fee }),
 				tip,

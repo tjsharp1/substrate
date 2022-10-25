@@ -75,7 +75,6 @@ where
 	) -> crate::ApplyExtrinsicResultWithInfo<PostDispatchInfoOf<Self::Call>> {
 		let (maybe_who, maybe_pre) = if let Some((id, extra)) = self.signed {
 			let pre = Extra::pre_dispatch(extra, &id, &self.function, info, len)?;
-            log::info!("TJDEBUG pre-dispp! pre {:?} in {:?}, ", pre, info);
 			(Some(id), Some(pre))
 		} else {
 			Extra::pre_dispatch_unsigned(&self.function, info, len)?;
@@ -87,7 +86,6 @@ where
 			Ok(info) => info,
 			Err(err) => err.post_info,
 		};
-        log::info!("TJDEBUG poaste {:?}", post_info);
 		Extra::post_dispatch(
 			maybe_pre,
 			info,
