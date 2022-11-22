@@ -51,6 +51,8 @@ pub fn expand_outer_validate_unsigned(
 		}
 	}
 
+    let strnames: Vec<_> = pallet_names.iter().map(|n| n.to_string()).collect();
+
 	quote! {
 		#( #query_validate_unsigned_part_macros )*
 
@@ -83,6 +85,9 @@ pub fn expand_outer_validate_unsigned(
 					)*
 					o => {
                     frame_support::log::error!("TJDEBUG predis procuns knowsen {:?}", o);
+                    for n in [#(#strnames),*].iter() {
+                        frame_support::log::error!("TJDEBUG ann eye tem {:?}", n);
+                    }
                     #scrate::unsigned::UnknownTransaction::NoUnsignedValidator.into()
                     }
 				}
