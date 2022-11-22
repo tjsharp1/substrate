@@ -159,7 +159,9 @@ impl<B: ChainApi> Pool<B> {
 		xts: impl IntoIterator<Item = ExtrinsicFor<B>>,
 	) -> Result<Vec<Result<ExtrinsicHash<B>, B::Error>>, B::Error> {
 		let xts = xts.into_iter().map(|xt| (source, xt));
+        log::error!("TJDEBUG vld8 0");
 		let validated_transactions = self.verify(at, xts, CheckBannedBeforeVerify::Yes).await?;
+        log::error!("TJDEBUG vld8 1");
 		Ok(self.validated_pool.submit(validated_transactions.into_iter().map(|(_, tx)| tx)))
 	}
 
@@ -186,7 +188,7 @@ impl<B: ChainApi> Pool<B> {
 	) -> Result<ExtrinsicHash<B>, B::Error> {
     log::error!("TJDEBUG ooooh! 0");
 		let res = self.submit_at(at, source, std::iter::once(xt)).await?.pop();
-    log::error!("TJDEBUG nohoooooooh! 1");
+    log::error!("TJDEBUG nohoooooooh! 1 {:?}", res);
 		res.expect("One extrinsic passed; one result returned; qed")
 	}
 
