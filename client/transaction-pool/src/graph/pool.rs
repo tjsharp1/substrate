@@ -398,6 +398,7 @@ impl<B: ChainApi> Pool<B> {
 			return (hash, ValidatedTransaction::Invalid(hash, err))
 		}
 
+        log::error!("TJDEBUG gna valid8d, but...");
 		let validation_result = self
 			.validated_pool
 			.api()
@@ -408,6 +409,7 @@ impl<B: ChainApi> Pool<B> {
 			Ok(status) => status,
 			Err(e) => return (hash, ValidatedTransaction::Invalid(hash, e)),
 		};
+        log::error!("TJDEBUG valid8d, but...");
 
 		let validity = match status {
 			Ok(validity) =>
@@ -425,8 +427,10 @@ impl<B: ChainApi> Pool<B> {
 				},
 			Err(TransactionValidityError::Invalid(e)) =>
 				ValidatedTransaction::Invalid(hash, error::Error::InvalidTransaction(e).into()),
-			Err(TransactionValidityError::Unknown(e)) =>
-				ValidatedTransaction::Unknown(hash, error::Error::UnknownTransaction(e).into()),
+			Err(TransactionValidityError::Unknown(e)) => {
+        log::error!("TJDEBUG valid8d, but un noan {:?}", e);
+				ValidatedTransaction::Unknown(hash, error::Error::UnknownTransaction(e).into())
+            }
 		};
 
 		(hash, validity)

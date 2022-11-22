@@ -137,6 +137,7 @@ where
 		let at = *at;
 		let validation_pool = self.validation_pool.clone();
 		let metrics = self.metrics.clone();
+        log::error!("TJDEBUG hear and reddie!");
 
 		async move {
 			metrics.report(|m| m.validations_scheduled.inc());
@@ -147,6 +148,7 @@ where
 				.send(
 					async move {
 						let res = validate_transaction_blocking(&*client, &at, source, uxt);
+                        log::error!("TJDEBUG and hear r wi? {:?}", res);
 						let _ = tx.send(res);
 						metrics.report(|m| m.validations_finished.inc());
 					}
