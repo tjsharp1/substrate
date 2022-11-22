@@ -215,27 +215,42 @@ where
 		let api_version = sp_tracing::within_span! { sp_tracing::Level::TRACE, "check_version";
 			runtime_api
 				.api_version::<dyn TaggedTransactionQueue<Block>>(at)
-				.map_err(|e| Error::RuntimeApi(e.to_string()))?
+				.map_err(|e| {
+                log::error!("TJDEBUG foufe 0");
+                    Error::RuntimeApi(e.to_string())
+                })?
 				.ok_or_else(|| Error::RuntimeApi(
 					format!("Could not find `TaggedTransactionQueue` api for block `{:?}`.", at)
 				))
 		}?;
+        log::error!("TJDEBUG doto! 2");
 
 		let block_hash = client.to_hash(at)
-			.map_err(|e| Error::RuntimeApi(e.to_string()))?
+			.map_err(|e| {
+            log::error!("TJDEBUG bleph 76");
+                Error::RuntimeApi(e.to_string())
+            })?
 			.ok_or_else(|| Error::RuntimeApi(format!("Could not get hash for block `{:?}`.", at)))?;
 
+        log::error!("TJDEBUG doughthri! 3");
 		use sp_api::Core;
 
 		sp_tracing::within_span!(
 			sp_tracing::Level::TRACE, "runtime::validate_transaction";
 		{
 			if api_version >= 3 {
+        log::error!("TJDEBUG aviric! 4");
 				runtime_api.validate_transaction(at, source, uxt, block_hash)
-					.map_err(|e| Error::RuntimeApi(e.to_string()))
+					.map_err(|e| {
+                    log::error!("TJDEBUG anerr happ'n'd 0");
+                        Error::RuntimeApi(e.to_string())
+                    })
 			} else {
 				let block_number = client.to_number(at)
-					.map_err(|e| Error::RuntimeApi(e.to_string()))?
+					.map_err(|e| {
+                    log::error!("TJDEBUG masdifafa 3423");
+                    Error::RuntimeApi(e.to_string())
+                    })?
 					.ok_or_else(||
 						Error::RuntimeApi(format!("Could not get number for block `{:?}`.", at))
 					)?;
@@ -247,16 +262,25 @@ where
 					Default::default(),
 					block_hash,
 					Default::default()),
-				).map_err(|e| Error::RuntimeApi(e.to_string()))?;
+				).map_err(|e| {
+                log::error!("TJDEBUG asquentilize 3636");
+                    Error::RuntimeApi(e.to_string())
+                })?;
 
 				if api_version == 2 {
 					#[allow(deprecated)] // old validate_transaction
 					runtime_api.validate_transaction_before_version_3(at, source, uxt)
-						.map_err(|e| Error::RuntimeApi(e.to_string()))
+						.map_err(|e| {
+                        log::error!("TJDEBUG blifquafiffer 944949");
+                            Error::RuntimeApi(e.to_string())
+                        })
 				} else {
 					#[allow(deprecated)] // old validate_transaction
 					runtime_api.validate_transaction_before_version_2(at, uxt)
-						.map_err(|e| Error::RuntimeApi(e.to_string()))
+						.map_err(|e| {
+                        log::error!("TJDEBUG kankzigokkler 4885");
+                        Error::RuntimeApi(e.to_string())
+                    })
 				}
 			}
 		})
