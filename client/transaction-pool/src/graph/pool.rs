@@ -184,7 +184,9 @@ impl<B: ChainApi> Pool<B> {
 		source: TransactionSource,
 		xt: ExtrinsicFor<B>,
 	) -> Result<ExtrinsicHash<B>, B::Error> {
+    log::error!("TJDEBUG ooooh! 0");
 		let res = self.submit_at(at, source, std::iter::once(xt)).await?.pop();
+    log::error!("TJDEBUG nohoooooooh! 1");
 		res.expect("One extrinsic passed; one result returned; qed")
 	}
 
