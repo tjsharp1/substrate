@@ -545,6 +545,7 @@ where
 	) -> TransactionValidity {
 		sp_io::init_tracing();
 		use sp_tracing::{enter_span, within_span};
+        log::error!("TJDEBUG trannie sauce {:?}", source);
 
 		<frame_system::Pallet<System>>::initialize(
 			&(frame_system::Pallet::<System>::block_number() + One::one()),
