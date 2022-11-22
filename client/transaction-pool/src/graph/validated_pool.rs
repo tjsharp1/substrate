@@ -196,11 +196,14 @@ impl<B: ChainApi> ValidatedPool<B> {
 	fn submit_one(&self, tx: ValidatedTransactionFor<B>) -> Result<ExtrinsicHash<B>, B::Error> {
 		match tx {
 			ValidatedTransaction::Valid(tx) => {
+            log::error!("TJDEBUG trannie is valid 0");
 				if !tx.propagate && !(self.is_validator.0)() {
 					return Err(error::Error::Unactionable.into())
 				}
 
+            log::error!("TJDEBUG trannie is valid 1");
 				let imported = self.pool.write().import(tx)?;
+            log::error!("TJDEBUG trannie is valid 2");
 
 				if let base::Imported::Ready { ref hash, .. } = imported {
 					let sinks = &mut self.import_notification_sinks.lock();
@@ -225,10 +228,12 @@ impl<B: ChainApi> ValidatedPool<B> {
 				Ok(*imported.hash())
 			},
 			ValidatedTransaction::Invalid(hash, err) => {
+            log::error!("TJDEBUG trannie is invalid {:?}", err);
 				self.rotator.ban(&Instant::now(), std::iter::once(hash));
 				Err(err)
 			},
 			ValidatedTransaction::Unknown(hash, err) => {
+            log::error!("TJDEBUG trannie is unknown {:?}", err);
 				self.listener.write().invalid(&hash);
 				Err(err)
 			},
