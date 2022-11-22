@@ -277,6 +277,7 @@ where
 		let state_runtime_code = sp_state_machine::backend::BackendRuntimeCode::new(&state);
 		let runtime_code =
 			state_runtime_code.runtime_code().map_err(sp_blockchain::Error::RuntimeCode)?;
+            log::info!("TJDEBUG inf foe!");
 		self.executor
 			.runtime_version(&mut ext, &runtime_code)
 			.map_err(|e| sp_blockchain::Error::VersionInvalid(e.to_string()))
@@ -320,6 +321,7 @@ where
 		ext: &mut dyn sp_externalities::Externalities,
 		runtime_code: &sp_core::traits::RuntimeCode,
 	) -> Result<sp_version::RuntimeVersion, sc_executor::error::Error> {
+    log::info!("TJDEBUG loc run thyme!");
 		RuntimeVersionOf::runtime_version(&self.executor, ext, runtime_code)
 	}
 }
@@ -331,6 +333,7 @@ where
 	Block: BlockT,
 {
 	fn runtime_version(&self, at: &BlockId<Block>) -> Result<sp_version::RuntimeVersion, String> {
+    log::info!("TJDEBUG lockal run thyme!");
 		CallExecutor::runtime_version(self, at).map_err(|e| e.to_string())
 	}
 }

@@ -265,8 +265,12 @@ fn generate_runtime_api_base_structures() -> Result<TokenStream> {
 				&self,
 				at: &#crate_::BlockId<Block>,
 			) -> std::result::Result<Option<u32>, #crate_::ApiError> where Self: Sized {
+            log::error!("TJDEBUG crappe");
 				#crate_::CallApiAt::<Block>::runtime_version_at(self.call, at)
-					.map(|v| #crate_::RuntimeVersion::api_version(&v, &A::ID))
+					.map(|v| {
+                        log::error!("TJDEBUG gotta eye dea! {:#?}", &A::ID);
+                        #crate_::RuntimeVersion::api_version(&v, &A::ID)
+                    })
 			}
 
 			fn record_proof(&mut self) {

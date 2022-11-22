@@ -81,7 +81,10 @@ pub fn expand_outer_validate_unsigned(
 						#pallet_attrs
 						Call::#pallet_names(inner_call) => #pallet_names::validate_unsigned(source, inner_call),
 					)*
-					_ => #scrate::unsigned::UnknownTransaction::NoUnsignedValidator.into(),
+					_ => {
+                    frame_support::log::error!("TJDEBUG predis procuns knowsen");
+                    #scrate::unsigned::UnknownTransaction::NoUnsignedValidator.into()
+                    }
 				}
 			}
 		}

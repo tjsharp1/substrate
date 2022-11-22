@@ -97,6 +97,7 @@ fn implement_common_api_traits(block_type: TypePath, self_ty: Type) -> Result<To
 				&self,
 				_: &#crate_::BlockId<#block_type>,
 			) -> std::result::Result<Option<u32>, #crate_::ApiError> where Self: Sized {
+            panic!("TJDEBUG DEBOOOOG! my verszh is {}", A::VERSION);
 				Ok(Some(A::VERSION))
 			}
 

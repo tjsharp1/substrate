@@ -23,7 +23,7 @@ use super::{
 	genesis,
 };
 use codec::{Decode, Encode};
-use log::{info, trace, warn};
+use log::{info, error, trace, warn};
 use parking_lot::{Mutex, RwLock};
 use prometheus_endpoint::Registry;
 use rand::Rng;
@@ -436,6 +436,7 @@ where
 
 	/// Get the RuntimeVersion at a given block.
 	pub fn runtime_version_at(&self, id: &BlockId<Block>) -> sp_blockchain::Result<RuntimeVersion> {
+    error!("TJDEBUG IN the runt thyme!");
 		CallExecutor::runtime_version(&self.executor, id)
 	}
 
@@ -1687,6 +1688,7 @@ where
 	}
 
 	fn runtime_version_at(&self, at: &BlockId<Block>) -> Result<RuntimeVersion, sp_api::ApiError> {
+    error!("TJDEBUG HAH! runn th");
 		CallExecutor::runtime_version(&self.executor, at).map_err(Into::into)
 	}
 

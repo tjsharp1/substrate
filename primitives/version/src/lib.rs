@@ -301,6 +301,10 @@ impl RuntimeVersion {
 
 	/// Returns the api version found for api with `id`.
 	pub fn api_version(&self, id: &ApiId) -> Option<u32> {
+    log::error!("TJDEBUG THIS IS API_VERSION ITER tryna fyndd {:?}!!!!", id);
+    for a in self.apis.iter() {
+        log::error!("TJDEBUG DEBOOG! {:?}", a);
+    }
 		self.apis.iter().find_map(|a| (a.0 == *id).then(|| a.1))
 	}
 }

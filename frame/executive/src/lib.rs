@@ -737,7 +737,10 @@ mod tests {
 				match call {
 					Call::allowed_unsigned { .. } => Ok(()),
 					Call::inherent_call { .. } => Ok(()),
-					_ => Err(UnknownTransaction::NoUnsignedValidator.into()),
+					_ => {
+                    frame_support::log::error!("TJDEBUG predis knowuns");
+                        Err(UnknownTransaction::NoUnsignedValidator.into())
+                    }
 				}
 			}
 
@@ -748,7 +751,10 @@ mod tests {
 			) -> TransactionValidity {
 				match call {
 					Call::allowed_unsigned { .. } => Ok(Default::default()),
-					_ => UnknownTransaction::NoUnsignedValidator.into(),
+					_ => {
+                    frame_support::log::error!("TJDEBUG predis noeuns");
+                    UnknownTransaction::NoUnsignedValidator.into()
+                    }
 				}
 			}
 		}
