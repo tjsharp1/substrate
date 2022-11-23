@@ -561,6 +561,7 @@ where
 		let xt = within_span! { sp_tracing::Level::TRACE, "check";
 			uxt.check(&Default::default())
 		}?;
+        log::error!("TJDEBUG thee xtee! {:?}", xt);
 
 		let dispatch_info = within_span! { sp_tracing::Level::TRACE, "dispatch_info";
 			xt.get_dispatch_info()

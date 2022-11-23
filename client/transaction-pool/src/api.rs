@@ -137,7 +137,6 @@ where
 		let at = *at;
 		let validation_pool = self.validation_pool.clone();
 		let metrics = self.metrics.clone();
-        log::error!("TJDEBUG hear and reddie!");
 
 		async move {
 			metrics.report(|m| m.validations_scheduled.inc());
@@ -148,7 +147,6 @@ where
 				.send(
 					async move {
 						let res = validate_transaction_blocking(&*client, &at, source, uxt);
-                        log::error!("TJDEBUG and hear r wi? {:?}", res);
 						let _ = tx.send(res);
 						metrics.report(|m| m.validations_finished.inc());
 					}
@@ -212,7 +210,6 @@ where
 	sp_tracing::within_span!(sp_tracing::Level::TRACE, "validate_transaction";
 	{
 		let runtime_api = client.runtime_api();
-        log::error!("TJDEBUG dowonn! 1");
 		let api_version = sp_tracing::within_span! { sp_tracing::Level::TRACE, "check_version";
 			runtime_api
 				.api_version::<dyn TaggedTransactionQueue<Block>>(at)
@@ -221,20 +218,17 @@ where
 					format!("Could not find `TaggedTransactionQueue` api for block `{:?}`.", at)
 				))
 		}?;
-        log::error!("TJDEBUG doto! 2");
 
 		let block_hash = client.to_hash(at)
 			.map_err(|e| Error::RuntimeApi(e.to_string()))?
 			.ok_or_else(|| Error::RuntimeApi(format!("Could not get hash for block `{:?}`.", at)))?;
 
-        log::error!("TJDEBUG doughthri! 3");
 		use sp_api::Core;
 
 		sp_tracing::within_span!(
 			sp_tracing::Level::TRACE, "runtime::validate_transaction";
 		{
 			if api_version >= 3 {
-        log::error!("TJDEBUG aviric! 4");
 				runtime_api.validate_transaction(at, source, uxt, block_hash)
 					.map_err(|e| Error::RuntimeApi(e.to_string()))
 			} else {
