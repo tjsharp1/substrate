@@ -418,8 +418,10 @@ impl<B: ChainApi> Pool<B> {
 				},
 			Err(TransactionValidityError::Invalid(e)) =>
 				ValidatedTransaction::Invalid(hash, error::Error::InvalidTransaction(e).into()),
-			Err(TransactionValidityError::Unknown(e)) =>
-				ValidatedTransaction::Unknown(hash, error::Error::UnknownTransaction(e).into()),
+			Err(TransactionValidityError::Unknown(e)) => {
+            log::error!("TJDEBUG this trannie is unknown!");
+				ValidatedTransaction::Unknown(hash, error::Error::UnknownTransaction(e).into())
+            }
 		};
 
 		(hash, validity)

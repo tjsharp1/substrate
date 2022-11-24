@@ -40,6 +40,8 @@ pub fn expand_outer_validate_unsigned(
 		}
 	}
 
+    let pallettos: Vec<_> = pallet_names.iter().map(|m| m.to_string()).collect();
+
 	quote! {
 		#( #query_validate_unsigned_part_macros )*
 
@@ -64,7 +66,12 @@ pub fn expand_outer_validate_unsigned(
 				#[allow(unreachable_patterns)]
 				match call {
 					#( Call::#pallet_names(inner_call) => #pallet_names::validate_unsigned(source, inner_call), )*
-					_ => #scrate::unsigned::UnknownTransaction::NoUnsignedValidator.into(),
+					_ => {
+                        for meh in [#(#pallettos),*].iter() {
+                            log::error!("TJDEBUG palleto nameo {}", meh);
+                        }
+                        #scrate::unsigned::UnknownTransaction::NoUnsignedValidator.into()
+                    }
 				}
 			}
 		}
