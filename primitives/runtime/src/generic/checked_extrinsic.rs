@@ -39,8 +39,7 @@ pub struct CheckedExtrinsic<AccountId, Call, Extra> {
 	pub function: Call,
 }
 
-impl<AccountId, Call, Extra, Origin> traits::Applyable for CheckedExtrinsic<Acc
-ountId, Call, Extra>
+impl<AccountId, Call, Extra, Origin> traits::Applyable for CheckedExtrinsic<AccountId, Call, Extra>
 where
 	AccountId: Member + MaybeDisplay,
 	Call: Member + Dispatchable<Origin = Origin>,
