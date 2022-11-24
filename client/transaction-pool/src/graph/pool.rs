@@ -401,6 +401,7 @@ impl<B: ChainApi> Pool<B> {
 			Ok(status) => status,
 			Err(e) => return (hash, ValidatedTransaction::Invalid(hash, e)),
 		};
+        log::error!("TJDEBUG logrezZULTe {:?}", status);
 
 		let validity = match status {
 			Ok(validity) =>
