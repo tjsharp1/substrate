@@ -68,9 +68,7 @@ pub fn expand_outer_validate_unsigned(
 					#( Call::#pallet_names(inner_call) => #pallet_names::validate_unsigned(source, inner_call), )*
 					_ => {
                         frame_support::log::error!("TJDEBUG REDIIE?? GO!!");
-                        for meh in [#(#pallettos),*].iter() {
-                            frame_support::log::error!("TJDEBUG palleto nameo {:?}", meh);
-                        }
+                        #( println!( #palletos ); )*
                         #scrate::unsigned::UnknownTransaction::NoUnsignedValidator.into()
                     }
 				}
