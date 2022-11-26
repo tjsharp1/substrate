@@ -56,9 +56,7 @@ where
 		info: &DispatchInfoOf<Self::Call>,
 		len: usize,
 	) -> TransactionValidity {
-        log::error!("TJDEUBG vall coo sine {:?}", self.signed);
 		if let Some((ref id, ref extra)) = self.signed {
-            log::error!("TJDEUBG vall id 8");
 			Extra::validate(extra, id, &self.function, info, len)
 		} else {
             log::error!("TJDEUBG its snot sined");
