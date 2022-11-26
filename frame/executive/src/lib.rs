@@ -523,7 +523,7 @@ where
 		}?;
 
         if source == TransactionSource::Local {
-            panic!("TJDEBUG wut?? {:?}", xt);
+            panic!("TJDEBUG wut??");
         }
 		let dispatch_info = within_span! { sp_tracing::Level::TRACE, "dispatch_info";
 			xt.get_dispatch_info()
