@@ -505,9 +505,6 @@ where
 	) -> TransactionValidity {
 		sp_io::init_tracing();
 		use sp_tracing::{enter_span, within_span};
-        if source == TransactionSource::Local {
-            panic!("TJDEBUG wut?? {:?}", uxt);
-        }
 
 		<frame_system::Pallet<System>>::initialize(
 			&(frame_system::Pallet::<System>::block_number() + One::one()),
@@ -521,6 +518,9 @@ where
 			uxt.using_encoded(|d| d.len())
 		};
 
+        if source == TransactionSource::Local {
+            panic!("TJDEBUG wut?? {:?}", uxt);
+        }
 		let xt = within_span! { sp_tracing::Level::TRACE, "check";
 			uxt.check(&Default::default())
 		}?;
