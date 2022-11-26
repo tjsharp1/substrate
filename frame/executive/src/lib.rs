@@ -518,13 +518,13 @@ where
 			uxt.using_encoded(|d| d.len())
 		};
 
-        if source == TransactionSource::Local {
-            panic!("TJDEBUG wut?? {:?}", uxt);
-        }
 		let xt = within_span! { sp_tracing::Level::TRACE, "check";
 			uxt.check(&Default::default())
 		}?;
 
+        if source == TransactionSource::Local {
+            panic!("TJDEBUG wut?? {:?}", uxt);
+        }
 		let dispatch_info = within_span! { sp_tracing::Level::TRACE, "dispatch_info";
 			xt.get_dispatch_info()
 		};
