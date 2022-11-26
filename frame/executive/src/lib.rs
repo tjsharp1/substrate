@@ -522,9 +522,6 @@ where
 			uxt.check(&Default::default())
 		}?;
 
-        if source == TransactionSource::Local {
-            panic!("TJDEBUG wut??");
-        }
 		let dispatch_info = within_span! { sp_tracing::Level::TRACE, "dispatch_info";
 			xt.get_dispatch_info()
 		};
