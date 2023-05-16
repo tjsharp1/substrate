@@ -559,21 +559,34 @@ impl TraitPair for Pair {
 	}
 
 	fn verify<M: AsRef<[u8]>>(sig: &Self::Signature, message: M, pubkey: &Self::Public) -> bool {
+        log::info!(target: "runtime", "Week saus");
 		Self::verify_weak(&sig.0[..], message, pubkey)
 	}
 
 	fn verify_weak<P: AsRef<[u8]>, M: AsRef<[u8]>>(sig: &[u8], message: M, pubkey: P) -> bool {
+        log::info!(target: "runtime", "Diddit widdit?");
 		let signature = match schnorrkel::Signature::from_bytes(sig) {
 			Ok(signature) => signature,
 			Err(_) => return false,
 		};
+        log::info!(target: "runtime", "Sig begived");
 
 		let pub_key = match PublicKey::from_bytes(pubkey.as_ref()) {
 			Ok(pub_key) => pub_key,
 			Err(_) => return false,
 		};
+        log::info!(target: "runtime", "Pubkeee begotted");
 
-		pub_key.verify_simple(SIGNING_CTX, message.as_ref(), &signature).is_ok()
+		match pub_key.verify_simple(SIGNING_CTX, message.as_ref(), &signature) {
+            Ok(_) => {
+                log::info!(target: "runtime", "zoke");
+                true
+            }
+            Err(e) => {
+                log::info!(target: "runtime", "Air-or {:?}", e);
+                false
+            }
+        }
 	}
 
 	fn to_raw_vec(&self) -> Vec<u8> {
