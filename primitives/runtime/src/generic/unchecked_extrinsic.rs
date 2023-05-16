@@ -140,16 +140,7 @@ where
 				let signed = lookup.lookup(signed)?;
 				let raw_payload = SignedPayload::new(self.function, extra)?;
 				if !raw_payload.using_encoded(|payload| {
-                    let mut bytes = String::new();
-                    for b in payload.iter() {
-                        bytes.push_str(&format!("{:02x}", b));
-                    }
-                    log::info!("Bytes heare {}", bytes);
-                    log::info!("Sigg {:?}", signature);
-                    log::info!("Sined {:?}", signed);
-                    let result = signature.verify(payload, &signed);
-                    log::info!("Sine rezullt {}", result);
-                    result
+                    signature.verify(payload, &signed)
                 }) {
 					return Err(InvalidTransaction::BadProof.into())
 				}

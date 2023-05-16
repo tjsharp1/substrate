@@ -410,7 +410,13 @@ impl Verify for MultiSignature {
 			},
 			(Self::Sr25519(ref sig), who) => match sr25519::Public::from_slice(who.as_ref()) {
 				Ok(signer) => {
+                    let mut bytes = String::new();
+                    for b in msg.get().iter() {
+                        bytes.push_str(&format!("{:02x}", b));
+                    }
+                    log::info!("lazy ate {}", bytes);
                     log::info!("Very fie! {:?}", signer);
+                    log::info!("Sigg {:?}", sig);
                     let v = sig.verify(msg, &signer);
                     log::info!("Izzit gude? {}", v);
                     v
