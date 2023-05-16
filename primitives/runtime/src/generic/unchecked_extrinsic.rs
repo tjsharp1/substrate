@@ -27,7 +27,7 @@ use crate::{
 	OpaqueExtrinsic,
 };
 use codec::{Compact, Decode, Encode, EncodeLike, Error, Input};
-use scale_info::{build::Fields, meta_type, Path, StaticTypeInfo, Type, TypeInfo, TypeParameter};
+use scale_info::{build::Fields, prelude::{format, string::String}, meta_type, Path, StaticTypeInfo, Type, TypeInfo, TypeParameter};
 use sp_io::hashing::blake2_256;
 use sp_std::{fmt, prelude::*};
 
