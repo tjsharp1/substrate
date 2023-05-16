@@ -51,7 +51,7 @@ use sp_core::{
 use sp_std::prelude::*;
 
 use codec::{Decode, Encode, MaxEncodedLen};
-use scale_info::TypeInfo;
+use scale_info::{prelude::{format, string::String}, TypeInfo};
 
 pub mod curve;
 pub mod generic;
