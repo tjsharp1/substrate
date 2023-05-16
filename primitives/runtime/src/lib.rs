@@ -409,7 +409,12 @@ impl Verify for MultiSignature {
 				Err(()) => false,
 			},
 			(Self::Sr25519(ref sig), who) => match sr25519::Public::from_slice(who.as_ref()) {
-				Ok(signer) => sig.verify(msg, &signer),
+				Ok(signer) => {
+                    log::info!("Very fie! {:?}", signer);
+                    let v = sig.verify(msg, &signer);
+                    log::info!("Izzit gude? {}", v);
+                    v
+                }
 				Err(()) => false,
 			},
 			(Self::Ecdsa(ref sig), who) => {
