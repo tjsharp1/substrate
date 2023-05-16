@@ -444,6 +444,7 @@ pub struct AnySignature(H512);
 impl Verify for AnySignature {
 	type Signer = sr25519::Public;
 	fn verify<L: Lazy<[u8]>>(&self, mut msg: L, signer: &sr25519::Public) -> bool {
+        log::info!("KNOT HEAR!");
 		let msg = msg.get();
 		sr25519::Signature::try_from(self.0.as_fixed_bytes().as_ref())
 			.map(|s| s.verify(msg, signer))
