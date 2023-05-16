@@ -569,13 +569,13 @@ impl TraitPair for Pair {
 			Ok(signature) => signature,
 			Err(_) => return false,
 		};
-        log::info!(target: "runtime", "Sig begived");
+        log::info!(target: "runtime", "Sig begoven {:?}", signature);
 
 		let pub_key = match PublicKey::from_bytes(pubkey.as_ref()) {
 			Ok(pub_key) => pub_key,
 			Err(_) => return false,
 		};
-        log::info!(target: "runtime", "Pubkeee begotted");
+        log::info!(target: "runtime", "Pubkeee begotted {:?}", pub_key);
 
 		match pub_key.verify_simple(SIGNING_CTX, message.as_ref(), &signature) {
             Ok(_) => {
